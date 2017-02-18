@@ -1,3 +1,37 @@
+"""* ========================================================================== */
+/* File: solution.py
+ *
+ * Project name: Artificial Intelligence Nano-Degree Program
+ * Component name: Sudoku AI agent - Naked Twins Implementation + Diagonal Solver
+ * Authors: Joseph Hwang & Udacity AIND Staff
+ * Mentor: Khushboo Tiwari
+ *
+ * Description: This file defines functionality of a Sudoku agent capable of
+ *     solving regular and diagonal sudokus using Eliminate,Only Choice, Naked Twins
+ *     contraint propagations
+ * Usage: run the script using the packages listed in the Anaconda aind environment
+ *     attached.
+ *
+ *         python solution.py
+ *
+ *                 or
+ *
+ *         python solution.py 2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3
+ *
+ *
+ * Input: (optional) starting sudoku string
+ *         otherwise - solves hardcoded starting sudoku string in body of script
+ *
+ * Output: Terminal Display of Solved Sudoku and if Pygame is installed then visualization
+ *
+ * Citation:Some Function definitions were either implemented during lectures or
+ *     cited from solution sets for Udacity's AIND program.
+ *
+ */
+/* ========================================================================== */
+"""
+import sys  #command line options
+
 assignments = []
 rows = 'ABCDEFGHI'
 cols = '123456789'
@@ -35,7 +69,6 @@ diag_units = create_diag(rows, cols)
 unitlist = row_units + column_units + square_units + diag_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
-
 
 
 
@@ -100,6 +133,7 @@ def naked_twins(values):
 
 def grid_values(grid):
     """
+    * Cited from Udacity-AIND Lectures
     Convert grid into a dict of {square: char} with '123456789' for empties.
     Args:
         grid(string) - A grid in string form.
@@ -120,6 +154,7 @@ def grid_values(grid):
 
 def display(values):
     """
+    * Cited from Udacity-AIND Lectures
     Display the values as a 2-D grid.
     Input: The sudoku in dictionary form
     Output: None
@@ -134,8 +169,8 @@ def display(values):
 
 
 def eliminate(values):
-    #pass
     """
+    * Cited from Udacity-AIND Lectures
     Go through all the boxes, and whenever there is a box with a value, eliminate this value from the values of all its peers.
     Input: A sudoku in dictionary form.
     Output: The resulting sudoku in dictionary form.
@@ -151,6 +186,7 @@ def eliminate(values):
 
 def only_choice(values):
     """
+    * Cited from Udacity-AIND Lectures
     Go through all the units, and whenever there is a unit with a value that only fits in one box, assign the value to this box.
     Input: A sudoku in dictionary form.
     Output: The resulting sudoku in dictionary form.
@@ -164,8 +200,8 @@ def only_choice(values):
     return values
 
 def reduce_puzzle(values):
-    #pass
     """
+    * Cited from Udacity-AIND Lectures
     Iterate eliminate() and only_choice(). If at some point, there is a box with no available values, return False.
     If the sudoku is solved, return the sudoku.
     If after an iteration of both functions, the sudoku remains the same, return the sudoku.
@@ -178,7 +214,7 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
-        values = naked_twins(values)
+        values = naked_twins(values)  #added naked_twins
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values.keys() if len(values[box]) == 0]):
@@ -186,41 +222,24 @@ def reduce_puzzle(values):
     return values
 
 def search(values):
-    #pass
-    "Using depth-first search and propagation, create a search tree and solve the sudoku."
-
+    """
+    * Cited from Udacity-AIND Lectures
+    Using depth-first search and propagation, create a search tree and solve the sudoku."
+    First, reduce the puzzle using the previous function
+    """
     values = reduce_puzzle(values)
-
-    #exit conditions
-    if values is False :
-        return False
-
-    cont_flag = 0
-    #check if all solved
-    for x in values.values() :
-        if len(x) > 1 :
-            cont_flag += 1
-            break
-    if cont_flag == 0 :
-        # solution returned
-        return values
-
+    if values is False:
+        return False ## Failed earlier
+    if all(len(values[s]) == 1 for s in boxes):
+        return values ## Solved!
     # Choose one of the unfilled squares with the fewest possibilities
-    m_box = ""
-    m_len = 10
-    for x in values.keys() :
-        new_len = len(values[x])
-        if new_len < m_len :
-            m_len = new_len
-            m_box = x
-
+    n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
     # Now use recurrence to solve each one of the resulting sudokus, and
-    for digit in values[m_box] :
-        new_values = values.copy()
-        new_values[m_box] = digit
-        attempt = search(new_values)
-        if attempt :
-            #then returned a solved value
+    for value in values[s]:
+        new_sudoku = values.copy()
+        new_sudoku[s] = value
+        attempt = search(new_sudoku)
+        if attempt:
             return attempt
 
 def solve(grid):
@@ -240,10 +259,18 @@ def solve(grid):
 
 
 if __name__ == '__main__':
-    diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    # display(solve(diag_sudoku_grid))
-    # reg_sudoku_grid = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
-    display(solve(diag_sudoku_grid))
+
+    if len(sys.argv) > 1 :
+        diag_sudoku_grid = sys.argv[1]
+        print(diag_sudoku_grid)
+    else :
+        diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+
+    to_display = solve(diag_sudoku_grid)
+    if to_display == False :
+        print("Not Solvable")
+    else:
+        display(to_display)
     try:
         from visualize import visualize_assignments
         visualize_assignments(assignments)
