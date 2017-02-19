@@ -126,5 +126,6 @@ and also searched random diagonal puzzles ranging in difficulty and manually ent
 ---------------------------------------------
 Contact Information
 ---------------------------------------------
-joseph.c.hwang.17@dartmouth.edu
-https://www.linkedin.com/in/joseph-hwang-8400b271
+EMAIL: joseph.c.hwang.17@dartmouth.edu
+
+LinkedIn: https://www.linkedin.com/in/joseph-hwang-8400b271
