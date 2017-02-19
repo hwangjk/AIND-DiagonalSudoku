@@ -1,16 +1,16 @@
 """* ========================================================================== */
 /* File: solution.py
  *
- * Project name: Artificial Intelligence Nano-Degree Program
- * Component name: Sudoku AI agent - Naked Twins Implementation + Diagonal Solver
- * Authors: Joseph Hwang & Udacity AIND Staff
+ * Project name: Diagonal Sudoku AI Agent
+ * Authors: Joseph Hwang & Udacity Staff (AIND)
  * Mentor: Khushboo Tiwari
  *
- * Description: This file defines functionality of a Sudoku agent capable of
+ * Description: This python script defines functionality of a Sudoku agent capable of
  *     solving regular and diagonal sudokus using Eliminate,Only Choice, Naked Twins
- *     contraint propagations
- * Usage: run the script using the packages listed in the Anaconda aind environment
- *     attached.
+ *     contraint propagations, solves both Regular and Diagonal Sudoku using Recursive Depth First Search
+ *     , and shows ASCII and Pygame visualization
+ *
+ * Usage:
  *
  *         python solution.py
  *
@@ -18,14 +18,14 @@
  *
  *         python solution.py 2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3
  *
+ * 		   Run using Anaconda package env listed in UNIX and Windows aind-environment yml files included
  *
  * Input: (optional) starting sudoku string
  *         otherwise - solves hardcoded starting sudoku string in body of script
  *
  * Output: Terminal Display of Solved Sudoku and if Pygame is installed then visualization
  *
- * Citation:Some Function definitions were either implemented during lectures or
- *     cited from solution sets for Udacity's AIND program.
+ * Citation: Some definitions were implemented during lectures or cited from lecture notes in Udacity's AIND program.
  *
  */
 /* ========================================================================== */
@@ -256,33 +256,33 @@ def solve(grid):
     return search(grid_values(grid))
 
 
-# 	SUDOKU SCRIPT
+#----------SCRIPT----------#
 
 if __name__ == '__main__':
 
-    if len(sys.argv) > 1 :
+    if len(sys.argv) > 1:
         sudoku_grid = sys.argv[1]
-    else :
+    else:
         sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
 
     # TRY DIAGONAL SUDOKU SOLVE - DEFAULT
     d_display = solve(sudoku_grid)
 
-    if d_display == False :
-        # TRY REGULAR SUDOKU SOLVE - CHANGE DEPENDENCIES to REG SETTINGS
+    if d_display:
+    	display(d_display)
+    else:
+        # TRY REGULAR SUDOKU SOLVE - CHANGE VARIABLE DEPENDENCIES to REG SETTINGS
+
         unitlist = reg_unitlist
         units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
         peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
         r_display = solve(sudoku_grid)
-        if r_display == False :
-        	display(r_display)
-        	sys.exit("Not Solvable as a Diagonal or Regular Sudoku")
-        else:
-        	display(r_display)
-    else:
-    	display(d_display)
 
+        if r_display:
+        	display(r_display)
+        else:
+        	sys.exit("Not Solvable as a Diagonal or Regular Sudoku")
     try:
         from visualize import visualize_assignments
         visualize_assignments(assignments)
@@ -290,4 +290,4 @@ if __name__ == '__main__':
     except SystemExit:
         pass
     except:
-        print('We could not visualize your board due to a pygame issue. Not a problem! It is not a requirement.')
+        print('Pygame not installed/working. No visualization.')
