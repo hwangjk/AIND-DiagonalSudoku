@@ -1,6 +1,6 @@
 File: README.md
 
-Authors: Joseph Hwang & Udacity Staff (AI-ND)
+Authors: Joseph Hwang & Udacity Staff (AIND)
 
 
 				--Project: Diagonal Sudoku AI Agent--
@@ -75,9 +75,10 @@ Then I added this diag_units list to the "unitlist" which the rest of the python
 Sub-Modules and Components
 --------------------------------------------
 solution.py
-pygame visualization
 
-solution_test.py # for tests
+pygame visualization files: PySudoku.py, visualize.py
+
+solution_test.py # unit test
 
 -------------------------
 INSTALL & RUN Information
@@ -126,6 +127,6 @@ and also searched random diagonal puzzles ranging in difficulty and manually ent
 ---------------------------------------------
 Contact Information
 ---------------------------------------------
-EMAIL: joseph.c.hwang.17@dartmouth.edu
+email: joseph.c.hwang.17@dartmouth.edu
 
 LinkedIn: https://www.linkedin.com/in/joseph-hwang-8400b271
