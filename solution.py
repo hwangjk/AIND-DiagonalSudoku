@@ -37,6 +37,7 @@ rows = 'ABCDEFGHI'
 cols = '123456789'
 
 def cross(A, B):
+	#*Cited from Udacity AIND lecture notes
     "Cross product of elements in A and elements in B."
     return [s+t for s in A for t in B]
 

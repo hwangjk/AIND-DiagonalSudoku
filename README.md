@@ -16,7 +16,7 @@ DETECTS AND SOLVES BOTH REGULAR AND DIAGONAL SUDOKU (DEFAULT)
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?
 
-A: Constraint propagation is used to make the search space of a problem smaller by using knowledge of certain definitions like Only One choice for a digit in a unit is in a box in Sudoku means that that the only value for the box is the "only choice". Another example of constraint propagation is the eliminate(values) function which follows the Sudoku definition that a digit 1-9 can only appear once in a unit, thus eliminating any digits (that should be the only choice for certain boxes) from peers. Naked Twins definition is boxes which have twin possibilities can only exist in those boxes and must be rejected from any other boxes in the peers of that unit. I used constraint propagation as follows for my naked twins implementation:
+A: Constraint propagation is used to make the search space of a problem smaller by using knowledge of certain definitions like Only One choice for a digit in a unit is in a box in Sudoku means that that the only value for the box is the "only choice". Another example of constraint propagation is the eliminate(values) function which follows the Sudoku definition that a digit 1-9 can only appear once in a unit, thus eliminating any digits (that should be the only choice for certain boxes) from peers. Naked Twins definition is boxes which have twin possibilities can only exist in those boxes and must be rejected from any other boxes in the peers of the twins. I used constraint propagation as follows for my naked twins implementation:
 
 "
 	if len(values[box]) == 2:
@@ -41,7 +41,7 @@ Here I am only proceeding to naked twins eliminations if the doubles list for th
 			#eliminate twin values from peers
 "
 
-Here I created a dictionary to hash values to check in O(n) if there any of the doubles boxes are twins by searching if the string possibility is in the same_dict key (aka entered already).
+Here I created a dictionary to hash values to check in O(1) if there any of the doubles boxes are twins by searching if the string possibility is in the same_dict key (aka entered already).
 If not, then I enter string, box as key,value pair.
 If yes, then we have a twin. Then proceed to eliminate pairs. Making problem space smaller.
 
