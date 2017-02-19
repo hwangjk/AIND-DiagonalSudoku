@@ -34,7 +34,6 @@ A: Constraint propagation is used to make the search space of a problem smaller 
 		else:
 			twin = same_dict[values[x]]
 			#eliminate twin values from peers
-			....
 "
 		Here I created a dictionary to hash values to check in O(n) if there any of the doubles boxes are twins by searching if the string possibility is in the same_dict key (aka entered already).
 		If not, then I enter string, box as key,value pair.
