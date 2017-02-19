@@ -104,7 +104,6 @@ def naked_twins(values):
             same_dict = dict()    #hashing to check if doubles are twins
             for x in doubles:
                 if not (values[x] in same_dict.keys()):
-                    # print(values[x])
                     same_dict[values[x]] = x
                 else:
                     twin = same_dict[values[x]]
