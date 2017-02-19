@@ -67,6 +67,7 @@ column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
 diag_units = create_diag(rows, cols)
 unitlist = row_units + column_units + square_units + diag_units
+reg_unitlist = row_units + column_units + square_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
@@ -253,24 +254,35 @@ def solve(grid):
     """
 
     return search(grid_values(grid))
-# regular sudoku
 
 
-
+# 	SUDOKU SCRIPT
 
 if __name__ == '__main__':
 
     if len(sys.argv) > 1 :
-        diag_sudoku_grid = sys.argv[1]
-        print(diag_sudoku_grid)
+        sudoku_grid = sys.argv[1]
     else :
-        diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+        sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
 
-    to_display = solve(diag_sudoku_grid)
-    if to_display == False :
-        print("Not Solvable")
+    # TRY DIAGONAL SUDOKU SOLVE - DEFAULT
+    d_display = solve(sudoku_grid)
+
+    if d_display == False :
+        # TRY REGULAR SUDOKU SOLVE - CHANGE DEPENDENCIES to REG SETTINGS
+        unitlist = reg_unitlist
+        units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
+        peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
+
+        r_display = solve(sudoku_grid)
+        if r_display == False :
+        	display(r_display)
+        	sys.exit("Not Solvable as a Diagonal or Regular Sudoku")
+        else:
+        	display(r_display)
     else:
-        display(to_display)
+    	display(d_display)
+
     try:
         from visualize import visualize_assignments
         visualize_assignments(assignments)
