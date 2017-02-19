@@ -60,7 +60,6 @@ def create_diag(rows, cols):
 
     return l
 
-
 boxes = cross(rows, cols)
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
@@ -70,7 +69,6 @@ unitlist = row_units + column_units + square_units + diag_units
 reg_unitlist = row_units + column_units + square_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
-
 
 
 def assign_value(values, box, value):
@@ -84,8 +82,6 @@ def assign_value(values, box, value):
     return values
 
 def naked_twins(values):
-    #TODO::
-
     """Eliminate values using the naked twins strategy.
     Args:
         values(dict): a dictionary of the form {'box_name': '123456789', ...}
@@ -129,9 +125,6 @@ def naked_twins(values):
                             pass
     return values
 
-
-
-
 def grid_values(grid):
     """
     * Cited from Udacity-AIND Lectures
@@ -167,7 +160,6 @@ def display(values):
                       for c in cols))
         if r in 'CF': print(line)
     print
-
 
 def eliminate(values):
     """
@@ -255,8 +247,7 @@ def solve(grid):
 
     return search(grid_values(grid))
 
-
-#----------SCRIPT----------#
+#----------SCRIPT-----------#
 
 if __name__ == '__main__':
 
@@ -278,7 +269,6 @@ if __name__ == '__main__':
         peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
         r_display = solve(sudoku_grid)
-
         if r_display:
         	display(r_display)
         else:
@@ -286,7 +276,6 @@ if __name__ == '__main__':
     try:
         from visualize import visualize_assignments
         visualize_assignments(assignments)
-
     except SystemExit:
         pass
     except:
