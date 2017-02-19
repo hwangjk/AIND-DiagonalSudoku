@@ -21,11 +21,15 @@ A: Constraint propagation is used to make the search space of a problem smaller 
 	if len(values[box]) == 2:
 		doubles.append(box)
 "
-		Here I am only considering the boxes with 2 possible values and saving them in a list for this unit in the unitlist. Making problem space smaller.
+
+Here I am only considering the boxes with 2 possible values and saving them in a list for this unit in the unitlist. Making problem space smaller.
+
 "
 	if len(doubles) > 1:
 "
-		Here I am only proceeding to naked twins eliminations if the doubles list for this unit is greater than 1 otherwise there cannot be any twins. Making problem space smaller.
+
+Here I am only proceeding to naked twins eliminations if the doubles list for this unit is greater than 1 otherwise there cannot be any twins. Making problem space smaller.
+
 "
 	same_dict = dict()
 	for x in doubles:
@@ -35,9 +39,10 @@ A: Constraint propagation is used to make the search space of a problem smaller 
 			twin = same_dict[values[x]]
 			#eliminate twin values from peers
 "
-		Here I created a dictionary to hash values to check in O(n) if there any of the doubles boxes are twins by searching if the string possibility is in the same_dict key (aka entered already).
-		If not, then I enter string, box as key,value pair.
-		If yes, then we have a twin. Then proceed to eliminate pairs. Making problem space smaller.
+
+Here I created a dictionary to hash values to check in O(n) if there any of the doubles boxes are twins by searching if the string possibility is in the same_dict key (aka entered already).
+If not, then I enter string, box as key,value pair.
+If yes, then we have a twin. Then proceed to eliminate pairs. Making problem space smaller.
 
 "
 	twin = same_dict[values[x]]
@@ -45,7 +50,7 @@ A: Constraint propagation is used to make the search space of a problem smaller 
 		if peer in peers[twin]
 "
 
-		Here I check only proceed with the following if the box is a peer of both twins pruning all the other possible peers to eliminate values from. Making problem space smaller.
+Here I check only proceed with the following if the box is a peer of both twins pruning all the other possible peers to eliminate values from. Making problem space smaller.
 
 And in the big picture, I used naked twins functionality as a constraint propagation in the reduce(values) function to reduce the problem space like eliminate(values) and only_choice(values) functions in every call to reduce_puzzle(values)
 
