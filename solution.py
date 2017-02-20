@@ -7,7 +7,7 @@
  *
  * Description: This python script defines functionality of a Sudoku agent capable of
  *     solving regular and diagonal sudokus using Eliminate,Only Choice, Naked Twins
- *     contraint propagations, solves both Regular and Diagonal Sudoku using Recursive Depth First Search
+ *     constraint propagations, solves both Regular and Diagonal Sudoku using Recursive Depth First Search
  *     , and shows ASCII and Pygame visualization
  *
  * Usage:
@@ -118,7 +118,7 @@ def naked_twins(values):
                                 for m in values[x]:
                                     if m in values[peer]:
                                         new_string = values[peer].replace(m,'')
-                                        assign_value(values, peer, new_string)
+                                        values = assign_value(values, peer, new_string)
                                     else:
                                         pass
                         else:
