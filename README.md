@@ -122,11 +122,3 @@ Udacity AIND staff.
 Command Input:  python solution_test.py
 
 and also searched random diagonal puzzles ranging in difficulty and manually entered them as command line arguments.
-
-
----------------------------------------------
-Contact Information
----------------------------------------------
-email: joseph.c.hwang.17@dartmouth.edu
-
-LinkedIn: https://www.linkedin.com/in/joseph-hwang-8400b271
