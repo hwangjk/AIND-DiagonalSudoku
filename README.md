@@ -1,6 +1,6 @@
-File: README.md
+# File: README.md
 
-Authors: Joseph Hwang & Udacity Staff (AIND)
+# Authors: J.C. Hwang & Udacity Staff (AIND)
 
 
 				--Project: Diagonal Sudoku AI Agent--
