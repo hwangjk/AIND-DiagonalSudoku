@@ -1,6 +1,6 @@
-# Sudoku Solver capable of solving Diagonal Sudokus and Regular Sudokus using Heuristics
+## Sudoku Solver capable of solving Diagonal Sudokus and Regular Sudokus using Heuristics
 
-## Authors: J.C. Hwang & Udacity Staff (AIND)
+### Authors: J.C. Hwang & Udacity Staff (AIND)
 
 
 				--Project: Diagonal Sudoku AI Agent--
